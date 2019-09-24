@@ -1,10 +1,10 @@
 <?php
 session_start();
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'pizzet31_senai');
-define('DB_PASSWORD', 'EolWnFtoL1yY');
-define('DB_DATABASE', 'pizzet31_senai');
-define("BASE_URL", "https://pizzetti.net/google/");
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', 'root');
+define('DB_DATABASE', 'google2fa');
+define("BASE_URL", "http://localhost/google-2fa/");
 
 function getDB()
 {
