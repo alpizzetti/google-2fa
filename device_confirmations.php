@@ -12,7 +12,7 @@
 	$email = $userDetails->email;
 	require_once 'googleLib/GoogleAuthenticator.php';
 	$ga = new GoogleAuthenticator();
-	$qrCodeUrl = $ga->getQRCodeGoogleUrl($email, $secret, '9lessons Demos');
+	$qrCodeUrl = $ga->getQRCodeGoogleUrl($email, $secret, 'Nome do APP');
 	?>
 
  <!DOCTYPE html>
