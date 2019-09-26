@@ -9,7 +9,7 @@
         $secret = $userDetails->google_auth_code;
         require_once 'googleLib/GoogleAuthenticator.php';
         $ga = new GoogleAuthenticator();
-        $checkResult = $ga->verifyCode($secret, $code, 2);    // 2 = 2*30sec clock tolerance
+        $checkResult = $ga->verifyCode($secret, $code, 2);
 
         if ($checkResult) {
             $_SESSION['googleCode'] = $code;
@@ -36,6 +36,7 @@
 
          <pre>
 <?php print_r($userDetails); ?>
+
 </pre>
          <h4><a href="<?php echo BASE_URL; ?>logout.php">Logout</a></h4>
      </div>

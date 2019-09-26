@@ -7,7 +7,7 @@ class userClass
 
           $db = getDB();
           $hash_password = hash('sha256', $password);
-          $stmt = $db->prepare("SELECT uid FROM users WHERE  (username=:usernameEmail or email=:usernameEmail) AND  password=:hash_password");
+          $stmt = $db->prepare("SELECT uid FROM users WHERE (email=:usernameEmail) AND password=:hash_password");
           $stmt->bindParam("usernameEmail", $usernameEmail, PDO::PARAM_STR);
           $stmt->bindParam("hash_password", $hash_password, PDO::PARAM_STR);
           $stmt->execute();
@@ -24,18 +24,16 @@ class userClass
      }
 
      /* Registro do Usuário */
-     public function userRegistration($username, $password, $email, $name, $secret)
+     public function userRegistration($password, $email, $name, $secret)
      {
           try {
                $db = getDB();
-               $st = $db->prepare("SELECT uid FROM users WHERE username=:username OR email=:email");
-               $st->bindParam("username", $username, PDO::PARAM_STR);
+               $st = $db->prepare("SELECT uid FROM users WHERE email=:email");
                $st->bindParam("email", $email, PDO::PARAM_STR);
                $st->execute();
                $count = $st->rowCount();
                if ($count < 1) {
-                    $stmt = $db->prepare("INSERT INTO users(username,password,email,name,google_auth_code) VALUES (:username,:hash_password,:email,:name,:google_auth_code)");
-                    $stmt->bindParam("username", $username, PDO::PARAM_STR);
+                    $stmt = $db->prepare("INSERT INTO users(password,email,name,google_auth_code) VALUES (:hash_password,:email,:name,:google_auth_code)");
                     $hash_password = hash('sha256', $password);
                     $stmt->bindParam("hash_password", $hash_password, PDO::PARAM_STR);
                     $stmt->bindParam("email", $email, PDO::PARAM_STR);
@@ -60,7 +58,7 @@ class userClass
      {
           try {
                $db = getDB();
-               $stmt = $db->prepare("SELECT email,username,name,google_auth_code FROM users WHERE uid=:uid");
+               $stmt = $db->prepare("SELECT email,name,google_auth_code FROM users WHERE uid=:uid");
                $stmt->bindParam("uid", $uid, PDO::PARAM_INT);
                $stmt->execute();
                $data = $stmt->fetch(PDO::FETCH_OBJ);
